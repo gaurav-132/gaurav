@@ -12,7 +12,9 @@ export const profile = {
 
 export const nav = [
   { href: "#projects", label: "Work" },
+  { href: "#skills", label: "Skills" },
   { href: "#services", label: "Services" },
+  { href: "#process", label: "Process" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
 ];

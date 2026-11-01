@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, type MouseEvent } from "react";
 import { nav, profile } from "@/lib/content";
 
 export function SiteHeader() {
@@ -16,8 +16,8 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle("nav-open", open);
-    return () => document.body.classList.remove("nav-open");
+    document.documentElement.classList.toggle("nav-open", open);
+    return () => document.documentElement.classList.remove("nav-open");
   }, [open]);
 
   useEffect(() => {
@@ -38,45 +38,60 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // The page is scroll-locked while the menu is open, so unlock before jumping.
+  const goTo = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const target = document.querySelector(href);
+    if (!target) return;
+    event.preventDefault();
+    document.documentElement.classList.remove("nav-open");
+    setOpen(false);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    history.replaceState(null, "", href);
+  };
+
   return (
-    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
-      <div className="nav-shell">
-        <a className="wordmark" href="#top">
-          <span>Gaurav Gusain</span>
-        </a>
-        <nav className="desktop-nav" aria-label="Primary">
-          {nav.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <a className="nav-cta" href="#contact">
-          Contact
-        </a>
-        <button
-          className="menu-button"
-          type="button"
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-          <span aria-hidden="true" className="menu-lines" />
-        </button>
-      </div>
-      {open ? (
-        <nav id={menuId} className="mobile-nav" aria-label="Mobile">
-          {nav.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </a>
-          ))}
-          <a href={`mailto:${profile.email}`} onClick={() => setOpen(false)}>
-            {profile.email}
+    <>
+      <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+        <div className="nav-shell">
+          <a className="wordmark" href="#top">
+            <span>Gaurav Gusain</span>
           </a>
-        </nav>
-      ) : null}
-    </header>
+          <nav className="desktop-nav" aria-label="Primary">
+            {nav.filter((item) => item.href !== "#contact").map((item) => (
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <a className="nav-cta" href="#contact">
+            Contact
+          </a>
+          <button
+            className="menu-button"
+            type="button"
+            aria-expanded={open}
+            aria-controls={menuId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span aria-hidden="true" className="menu-lines" />
+          </button>
+        </div>
+        {open ? (
+          <nav id={menuId} className="mobile-nav" aria-label="Mobile">
+            {nav.map((item) => (
+              <a key={item.href} href={item.href} onClick={(event) => goTo(event, item.href)}>
+                {item.label}
+              </a>
+            ))}
+            <a href={`mailto:${profile.email}`} onClick={() => setOpen(false)}>
+              {profile.email}
+            </a>
+          </nav>
+        ) : null}
+      </header>
+      {open ? <div className="nav-backdrop" aria-hidden="true" onClick={() => setOpen(false)} /> : null}
+    </>
   );
 }

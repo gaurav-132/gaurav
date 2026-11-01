@@ -5,7 +5,7 @@ export function Process() {
     <section className="section process" id="process" aria-labelledby="process-title">
       <div className="process-inner">
         <div className="section-intro">
-          <p className="section-index">03 / Process</p>
+          <p className="section-index">04 / Process</p>
           <div>
             <h2 id="process-title">Working process</h2>
             <p>

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,7 +32,6 @@ export default function RootLayout({
         <div className="atmosphere" aria-hidden="true" />
         <SiteHeader />
         {children}
-        <SiteFooter />
       </body>
     </html>
   );
