@@ -5,7 +5,9 @@ export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-copy">
-        <p className="eyebrow">{profile.name} · {profile.role} · 3+ years</p>
+        <p className="eyebrow">
+          <span>{profile.name} ·</span> <span>{profile.role} ·</span> <span>3+ years</span>
+        </p>
         <h1 id="hero-title">Software that makes <em>workflows</em> work better.</h1>
         <p className="lede">
           I build custom CRM systems, internal tools, and full-stack web

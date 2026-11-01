@@ -1,5 +1,6 @@
 import { profile } from "@/lib/content";
 import { ContactForm } from "@/components/contact-form";
+import { SiteFooter } from "@/components/site-footer";
 
 const profiles = [
   { label: "GitHub", href: profile.github },
@@ -12,7 +13,7 @@ export function Contact() {
     <section className="section contact" id="contact" aria-labelledby="contact-title">
       <div className="contact-layout">
         <div className="contact-copy">
-          <p className="section-index">05 / Contact</p>
+          <p className="section-index">06 / Contact</p>
           <h2 id="contact-title">Have a product to build? Start here.</h2>
           <p>
             I am open to new web applications, custom business tools, and
@@ -40,6 +41,7 @@ export function Contact() {
           <ContactForm />
         </div>
       </div>
+      <SiteFooter />
     </section>
   );
 }

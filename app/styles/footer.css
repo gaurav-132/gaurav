@@ -1,0 +1,137 @@
+.site-footer {
+  width: min(var(--page), 100%);
+  margin: clamp(32px, 5svh, 56px) auto 0;
+  padding-top: clamp(24px, 3svh, 32px);
+  border-top: 1px solid #ccd5c6;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.footer-brand {
+  min-width: 0;
+}
+
+.footer-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.footer-brand p {
+  margin-top: 2px;
+  color: #55625a;
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: #3c4a42;
+  font-size: 0.95rem;
+  font-weight: 550;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.footer-links a:hover {
+  color: #3f5a24;
+  text-decoration-color: #89b541;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin-top: clamp(18px, 2.5svh, 24px);
+  padding: 8px 0 clamp(14px, 2svh, 20px);
+  border-top: 1px solid #d8e0d3;
+}
+
+.footer-bottom p {
+  color: #66726b;
+  font-size: 0.88rem;
+}
+
+.footer-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #3c4a42;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-top-link:hover {
+  color: #3f5a24;
+}
+
+.footer-top-link span {
+  transition: transform 160ms ease;
+}
+
+.footer-top-link:hover span {
+  transform: translateY(-2px);
+}
+
+.footer-name:focus-visible,
+.footer-links a:focus-visible,
+.footer-top-link:focus-visible {
+  outline: 3px solid rgba(137, 181, 65, 0.45);
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .footer-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    gap: 0 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-links a,
+  .footer-top-link span {
+    transition: none;
+  }
+}

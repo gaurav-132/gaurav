@@ -1,35 +1,52 @@
-import { skillGroups } from "@/lib/content";
-import { notes, profile } from "@/lib/content";
+import { notes, skillGroups } from "@/lib/content";
 
 const contribution = notes.find((note) => note.name === "Chakra UI");
 
 export function Skills() {
-    const skills = skillGroups.flatMap((group) => group.items);
-    return (
-        <div>
-            <h2 id="projects-title">Skill & Achievement</h2>
-            <section className="skills-strip" id="skills" aria-label="Technology experience">
-                <span>Tools I work with</span>
-                {skills.map((skill) => <span key={skill}>{skill}</span>)}
-            </section>
+  return (
+    <section className="section skills" id="skills" aria-labelledby="skills-title">
+      <div className="skills-frame">
+        <div className="skills-copy">
+          <p className="section-index">02 / Skills &amp; achievements</p>
+          <h2 id="skills-title">A practical stack, end to end.</h2>
+          <p className="skills-intro">
+            I work across the product: from clear interfaces to dependable APIs
+            and the data behind them.
+          </p>
 
-             {contribution ? (
-        <aside className="oss-note" aria-label="Open source contribution">
-          <span className="oss-mark" aria-hidden="true">↗</span>
-          <div>
-            <p className="section-index">Open source contribution</p>
-            <h3>{contribution.name}</h3>
-            <p>{contribution.text}</p>
-            <small>{contribution.meta}</small>
+          <div className="skill-groups">
+            {skillGroups.map((group) => (
+              <div className="skill-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <ul aria-label={`${group.title} skills`}>
+                  {group.items.map((skill) => <li key={skill}>{skill}</li>)}
+                </ul>
+              </div>
+            ))}
           </div>
-          {contribution.href && contribution.linkLabel ? (
-            <a href={contribution.href} target="_blank" rel="noreferrer">
-              {contribution.linkLabel}
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          ) : null}
-        </aside>
-      ) : null}
-        </div>                            
-    );
+        </div>
+
+        {contribution ? (
+          <article className="achievement-card" aria-labelledby="achievement-title">
+            <div className="achievement-topline">
+              <span className="achievement-symbol" aria-hidden="true">↗</span>
+              <span>Open source contribution</span>
+            </div>
+            <p className="achievement-kicker">Merged pull request · Chakra UI</p>
+            <h3 id="achievement-title">A small fix.<br />A better chart tooltip.</h3>
+            <p className="achievement-description">{contribution.text}</p>
+            <div className="achievement-footer">
+              <span>{contribution.meta}</span>
+              {contribution.href && contribution.linkLabel ? (
+                <a href={contribution.href} target="_blank" rel="noreferrer">
+                  View pull request <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : null}
+            </div>
+          </article>
+        ) : null}
+      </div>
+    </section>
+  );
 }

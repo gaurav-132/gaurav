@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Project } from "@/lib/content";
 import { CustomerCrmStudy, HrmsStudy, SportsStudy } from "@/components/studies";
 
@@ -57,6 +57,25 @@ export function WorkCarousel({ projects }: { projects: Project[] }) {
     setActive((current) => (current + offset + projects.length) % projects.length);
   };
 
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  const onTouchStart = (event: React.TouchEvent) => {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (event: React.TouchEvent) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start || projects.length < 2) return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      move(dx < 0 ? 1 : -1);
+    }
+  };
+
   return (
     <div
       className="work-carousel"
@@ -72,7 +91,7 @@ export function WorkCarousel({ projects }: { projects: Project[] }) {
         }
       }}
     >
-      <div className="carousel-track" aria-live="off">
+      <div className="carousel-track" aria-live="off" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         {projects.map((project, index) => {
           const Study = studies[project.id];
           return (

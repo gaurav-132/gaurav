@@ -34,8 +34,10 @@ export function ContactForm() {
     }
 
     setErrors(next);
-    if (Object.keys(next).length > 0) {
+    const firstInvalid = (["name", "email", "message"] as const).find((key) => next[key]);
+    if (firstInvalid) {
       setStatus("idle");
+      event.currentTarget.querySelector<HTMLElement>(`#${firstInvalid}`)?.focus();
       return;
     }
 

@@ -4,7 +4,7 @@ export function Services() {
   return (
     <section className="section services" id="services" aria-labelledby="services-title">
       <div className="section-intro">
-        <p className="section-index">02 / Services</p>
+        <p className="section-index">03 / Services</p>
         <div>
           <h2 id="services-title">Services</h2>
           <p>
@@ -15,7 +15,7 @@ export function Services() {
       </div>
       <div className="services-grid">
         {services.map((service) => (
-          <article className="service" key={service.index} style={{ cursor:'pointer'}}>
+          <article className="service" key={service.index}>
             <p className="service-number">{service.index}</p>
             <h3>{service.title}</h3>
             <p>{service.text}</p>
